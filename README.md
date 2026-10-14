@@ -2,7 +2,9 @@
 
 ## Origination and Version History
 
-Neologismata was authored by Mark G. Bilby [orcid:0000-0003-0100-6634](https://orcid.org/0000-0003-0100-6634) and first publicly archived as Version 1.0 on 2026-04-18 on Zenodo at [base doi:10.5281/zenodo.19646263](https://doi.org/10.5281/zenodo.19646263). Version 1.1 was archived 2026-04-19 on Zenodo. Richard Carrier wrote a critical review encompassing about 15-20 pages of the book in a blog post made on 2026-05-01, entitled [“Problems with the Bilby Thesis”](https://web.archive.org/web/20260515155327/https://www.richardcarrier.info/archives/41567). Version 1.2 incorporated Carrier's feedback and was archived 2026-05-15 on Zenodo.
+Neologismata was authored by Mark G. Bilby [orcid:0000-0003-0100-6634](https://orcid.org/0000-0003-0100-6634) and first publicly archived as Version 1.0 on 2026-04-18 on Zenodo at [base doi:10.5281/zenodo.19646263](https://doi.org/10.5281/zenodo.19646263). Version 1.1 was archived 2026-04-19 on Zenodo. 
+
+Richard Carrier wrote a critical review covering about 15-20 pages of the book in a blog post made on 2026-05-01. The review was entitled [“Problems with the Bilby Thesis”](https://web.archive.org/web/20260515155327/https://www.richardcarrier.info/archives/41567). Neologismata version 1.2 incorporated Carrier's feedback and was archived 2026-05-15 on Zenodo.
 
 ## Description
 
