@@ -1,0 +1,121 @@
+# texcrosswalk.yml — custom LaTeX→Markdown crosswalk rules for texmodular2gitbook.py
+# Edit this file to adjust formatting without touching the Python script.
+# Rules apply in listed order within each section.
+#
+# NOTE: patterns are single-quoted YAML scalars; backslashes are literal
+# (one backslash in the file = one backslash in the pattern; regex escapes
+# like \{ are written as-is).
+
+macro_replacements:
+  '\copyright\ ': '© '
+  '\copyright': '©'
+  '\&': '&'
+  '\%': '%'
+  'ê': 'ē'
+  'ô': 'ō'
+  '---': '—'
+  '--': '–'
+  '~': ' '
+
+regex_cleanups:
+  # Hidden white-text watermarks dropped (before break rules can split braces).
+  - pattern: '\\textcolor\{white\}\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}'
+    replacement: ''
+  # Environment markers with brace arguments: consume args too.
+  - pattern: '\\(?:begin|end)\{adjustwidth\}\{[^}]*\}\{[^}]*\}'
+    replacement: ''
+  - pattern: '\\(?:begin|end)\{spacing\}\{[^}]*\}'
+    replacement: ''
+  # Layout commands with no Markdown equivalent.
+  - pattern: '\\(?:noindent|justifying|clearpage|newpage|vfill|null|centering|raggedright|sloppy)\b\*?'
+    replacement: ''
+  - pattern: '\\(?:frontmatter|mainmatter|backmatter|tableofcontents|theendnotes|begingroup|endgroup|immediate|closeout)\b'
+    replacement: ''
+  - pattern: '\\vspace(?:\*)?\{[^}]*\}'
+    replacement: ''
+  - pattern: '\\setlength\{[^}]*\}\{[^}]*\}'
+    replacement: ''
+  - pattern: '\\thispagestyle\{[^}]*\}'
+    replacement: ''
+  - pattern: '\{[^}]*\}\{[^}]*\}'
+    replacement: ''
+  - pattern: '\\(?:hangindent|parindent|parsep|parskip)\s*=?\s*[0-9.]+\w*'
+    replacement: ''
+  - pattern: '\\(?:fontsize|setkomafont)\{[^}]*\}(?:\{[^}]*\})?'
+    replacement: ''
+  - pattern: '\\(?:selectfont|normalfont|rmfamily|sloppy|small|large|Large|footnotesize|textrm|textup)\b'
+    replacement: ''
+  - pattern: '\\def\\[a-zA-Z@]+\{[^}]*\}'
+    replacement: ''
+  - pattern: '\\newline\b'
+    replacement: '  \n'
+  # \\ followed by an empty-label \makebox (continuation indent) is a soft
+  # wrap inside an entry: join, even across a comment-stripped line end.
+  - pattern: '\\\\\s*\n?\s*\\makebox\[[^\]]*\]\[[^\]]*\]\{\}'
+    replacement: ' '
+  # \\[...] is a deliberate hard break between items.
+  - pattern: '\\\\\[[^\]]*\]'
+    replacement: '  \n'
+  # Empty-label \makebox (continuation indent) collapses to a space.
+  - pattern: '\\makebox\[[^\]]*\]\[[^\]]*\]\{\}'
+    replacement: ' '
+  # \\ at end of line (before newline) is a hard break: separate display lines.
+  - pattern: '\\\\\ '
+    replacement: '  \n'
+  # \\ mid-line (continuation wrap inside an entry) joins softly.
+  - pattern: '\\\\(?!\[)'
+    replacement: ' '
+  - pattern: '\\textls(?:\[[^\]]*\])?\{((?:[^{}]|\{[^{}]*\})*)\}'
+    replacement: '\1'
+  - pattern: '\\greeksymbol\s*'
+    replacement: ''
+  - pattern: '\\texthebrew\{((?:[^{}]|\{[^{}]*\})*)\}'
+    replacement: '\1'
+  - pattern: '\\(?:cite|ref|label|doi|url)\{([^}]*)\}'
+    replacement: '\1'
+  - pattern: '\\ark\{([^}]*)\}'
+    replacement: '\1'
+
+drop_environments:
+  - comment
+  - tikzpicture
+  - figure
+
+strip_environments:
+  - spacing
+  - adjustwidth
+  - small
+  - footnotesize
+  - large
+  - flushleft
+  - centering
+  - RTL
+  - titlepage
+  - center
+  - itemize
+  - enumerate
+
+quote_environment: quote
+
+item_marker: '-'
+
+abbrev_makebox: true
+
+style_macros:
+  textit: '*'
+  emph: '*'
+  textbf: '**'
+  textsc: ''
+  textsuperscript: '<sup>%s</sup>'
+
+metadata_patterns:
+  title: '\\fontsize\{44\}\{44\}\\selectfont ([^}]+)\}'
+  volume: '\\fontsize\{24\}\{24\}\\selectfont ([^}]+)\}'
+  description: '\\Large Proofs of New Testament Redactions.*?between ([0-9]+) and ([0-9]+) CE'
+  author: '\\Large Mark G\. \\textsc\{Bilby\}'
+  author_value: 'Mark G. Bilby'
+  edition: 'First Edition: (v[0-9.]+)'
+  publisher: 'Kansas City, KS: ([^,]+), ([0-9]{4})'
+  copyright: '\\copyright\ ([0-9]{4}) by ([^,]+)'
+  isbn: 'ISBN: ([0-9Xx-]+)'
+  doi: 'Zenodo DOI: ([0-9.]+/[^\s%}]+)'

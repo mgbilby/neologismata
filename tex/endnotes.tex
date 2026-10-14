@@ -1,0 +1,15 @@
+%
+%============= endnotes =================%
+%
+\addchap{Endnotes}
+
+\begingroup
+  \sloppy
+  \parindent=0pt
+  \def\enotesize{\small}
+  \makeatletter
+  \immediate\closeout\tf@enotes 
+  \makeatother
+  \theendnotes
+\endgroup
+\clearpage
