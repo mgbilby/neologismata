@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>{{ site.title }} by {{ site.author.name }}</title>
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <script src="js/gutenberg.js"></script>
+</head>
+<body>
+<nav class="toc-sidebar">
+  <h4>{{ site.title }}</h4>
+  <ul>
+  {% for item in site.toc %}
+    <li><a href="#{{ item.anchor }}">{{ item.title }}</a></li>
+  {% endfor %}
+  </ul>
+</nav>
+<div class="toggleWrapper">
+  <a id="btnToggleGrid" class="btnToggleGrid" href="javascript:void(0)">Turn Grid On</a>
+</div>
+<article>
+{{ content }}
+</article>
+<script>
+	// Toggle Grid Functionality
+	document.getElementById("btnToggleGrid").onclick = toggleGrid;
+</script>
+</body>
+</html>
